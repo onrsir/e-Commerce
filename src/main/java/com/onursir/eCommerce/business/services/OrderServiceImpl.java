@@ -8,8 +8,10 @@ import com.onursir.eCommerce.business.responses.GetAllOrderResponse;
 import com.onursir.eCommerce.business.responses.GetAllUserResponse;
 import com.onursir.eCommerce.dataAccess.OrderRepository;
 import com.onursir.eCommerce.dataAccess.UserRepository;
+import com.onursir.eCommerce.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,6 +37,15 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public void add(CreateOrderRequest orderRequests) {
+        Order order = this.modelMappersService.forRequest().map(orderRequests,Order.class);
+        this.orderRepository.save(order);
+    }
+
+
+
+
+    @Override
     public List<GetAllOrderResponse> getAll() {
         List<Order> orders  = orderRepository.findAll();
         List<GetAllOrderResponse> getAllOrders = orders.stream()
@@ -42,6 +53,19 @@ public class OrderServiceImpl implements OrderService{
                         .map(orderItem, GetAllOrderResponse.class)).collect(Collectors.toList());
 
         return getAllOrders;
+    }
+
+    @Override
+    public void delete(long id) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+        if (order == null) {
+            throw new ResourceNotFoundException("Animal not found with id: " + id);
+        }
+        try {
+            this.orderRepository.deleteById(id);
+        } catch (Exception ex) {
+            throw new RuntimeException("An unexpected error occurred while deleting animal with id: " + id, ex);
+        }
     }
 
 }

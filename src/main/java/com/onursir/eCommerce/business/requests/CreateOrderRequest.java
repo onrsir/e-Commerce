@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateOrderRequest {
-
+    private long id;
     private long userId;
     private BigDecimal amount;
     private LocalDateTime orderDate;

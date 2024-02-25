@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllOrderResponse {
+    private long id;
     private long userId;
-    private long orderId;
     private BigDecimal amount;
     private LocalDateTime orderDate;
 }

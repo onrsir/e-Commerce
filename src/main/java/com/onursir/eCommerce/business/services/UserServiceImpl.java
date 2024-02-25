@@ -7,7 +7,6 @@ import com.onursir.eCommerce.business.requests.CreateUserRequest;
 import com.onursir.eCommerce.business.responses.GetAllUserResponse;
 import com.onursir.eCommerce.dataAccess.UserRepository;
 import lombok.AllArgsConstructor;
-import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -41,7 +40,6 @@ public class UserServiceImpl implements UserService {
 
         return userResponses;
     }
-
 
 
 
