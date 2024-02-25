@@ -9,4 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends JpaRepository<User,Long> {
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.orders WHERE u.id = :userId")
     GetAllUserResponse getUserWithOrders(@Param("userId") Long userId);
+
+    User findByOrdersId(long orderId);
+
 }

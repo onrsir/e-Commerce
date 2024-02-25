@@ -10,6 +10,7 @@ import com.onursir.eCommerce.dataAccess.OrderRepository;
 import com.onursir.eCommerce.dataAccess.UserRepository;
 import com.onursir.eCommerce.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -54,18 +55,38 @@ public class OrderServiceImpl implements OrderService{
 
         return getAllOrders;
     }
-
     @Override
+    public void delete(long id) {
+        User user = userRepository.findByOrdersId(id);
+        if (user == null) {
+            throw new ResourceNotFoundException("Order not found with id: " + id);
+        }
+
+        // User nesnesinden ilgili Order'ı sil
+        user.getOrders().removeIf(order -> order.getId() == id);
+        userRepository.save(user);
+    }
+
+
+
+
+
+/*    @Override
     public void delete(long id) {
         Order order = this.orderRepository.findById(id).orElse(null);
         if (order == null) {
-            throw new ResourceNotFoundException("Animal not found with id: " + id);
+            throw new ResourceNotFoundException("Order not found with id: " + id);
         }
         try {
             this.orderRepository.deleteById(id);
         } catch (Exception ex) {
-            throw new RuntimeException("An unexpected error occurred while deleting animal with id: " + id, ex);
+            throw new RuntimeException("An unexpected error occurred while deleting order with id: " + id, ex);
         }
-    }
+    }*/
+
+
+
+
+
 
 }

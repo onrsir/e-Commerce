@@ -12,6 +12,6 @@ public interface OrderService {
     List<GetAllOrderResponse> getAll();
 
     void delete(long id);
-    void add(@RequestBody CreateOrderRequest orderRequests);
+    void add(CreateOrderRequest orderRequests);
 
 }

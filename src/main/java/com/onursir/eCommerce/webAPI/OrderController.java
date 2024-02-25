@@ -26,12 +26,20 @@ public class OrderController {
         orderService.addMultiple(orderRequests);
     }
 
+/*
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete")
     public void delete(@PathVariable long id) {
         this.orderService.delete(id);
     }
+*/
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        orderService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 
 
     @GetMapping
