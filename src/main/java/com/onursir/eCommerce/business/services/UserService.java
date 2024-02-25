@@ -10,4 +10,7 @@ public interface UserService {
     void add(CreateUserRequest createUserRequest);
 
     List<GetAllUserResponse> getAll();
+
+
+
 }

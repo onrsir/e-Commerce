@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface OrderService {
 
-    void add(CreateOrderRequest createOrderRequest);
-
+     void addMultiple(List<CreateOrderRequest> orderRequests);
     List<GetAllOrderResponse> getAll();
 }

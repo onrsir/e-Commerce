@@ -1,5 +1,6 @@
 package com.onursir.eCommerce.webAPI;
 
+import com.onursir.eCommerce.Entity.User;
 import com.onursir.eCommerce.business.requests.CreateUserRequest;
 import com.onursir.eCommerce.business.responses.GetAllUserResponse;
 import com.onursir.eCommerce.business.services.UserService;
@@ -25,4 +26,5 @@ public class UserController {
     public List<GetAllUserResponse> getAll(){
         return userService.getAll();
     }
+
 }

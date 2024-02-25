@@ -19,10 +19,10 @@ public class OrderController {
 
     private OrderService orderService;
 
-    @PostMapping
+    @PostMapping("/add-multiple")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody CreateOrderRequest createOrderRequest){
-        orderService.add(createOrderRequest);
+    public void addMultiple(@RequestBody List<CreateOrderRequest> orderRequests) {
+        orderService.addMultiple(orderRequests);
     }
 
 

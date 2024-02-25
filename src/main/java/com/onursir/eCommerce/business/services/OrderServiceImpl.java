@@ -1,11 +1,13 @@
 package com.onursir.eCommerce.business.services;
 
 import com.onursir.eCommerce.Entity.Order;
+import com.onursir.eCommerce.Entity.User;
 import com.onursir.eCommerce.business.mappers.ModelMappersService;
 import com.onursir.eCommerce.business.requests.CreateOrderRequest;
 import com.onursir.eCommerce.business.responses.GetAllOrderResponse;
 import com.onursir.eCommerce.business.responses.GetAllUserResponse;
 import com.onursir.eCommerce.dataAccess.OrderRepository;
+import com.onursir.eCommerce.dataAccess.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +23,15 @@ public class OrderServiceImpl implements OrderService{
 
     private ModelMappersService modelMappersService;
     private OrderRepository orderRepository;
+    public UserRepository userRepository;
+
 
     @Override
-    public void add(CreateOrderRequest createOrderRequest) {
-       Order order = this.modelMappersService.forRequest().map(createOrderRequest, Order.class);
-       this.orderRepository.save(order);
+    public void addMultiple(List<CreateOrderRequest> orderRequests) {
+        List<Order> orders = orderRequests.stream()
+                .map(request -> modelMappersService.forRequest().map(request, Order.class))
+                .collect(Collectors.toList());
+        orderRepository.saveAll(orders);
     }
 
     @Override
