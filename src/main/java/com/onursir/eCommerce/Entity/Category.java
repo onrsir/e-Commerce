@@ -1,13 +1,15 @@
 package com.onursir.eCommerce.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
+@Table(name = "categories")
 public class Category {
 
     @Id
@@ -15,5 +17,9 @@ public class Category {
     private long id;
     private String name;
     private String description;
+
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<Product> products = new ArrayList<>();
 
 }

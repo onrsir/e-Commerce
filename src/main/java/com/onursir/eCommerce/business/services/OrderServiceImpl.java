@@ -62,7 +62,6 @@ public class OrderServiceImpl implements OrderService{
             throw new ResourceNotFoundException("Order not found with id: " + id);
         }
 
-        // User nesnesinden ilgili Order'ı sil
         user.getOrders().removeIf(order -> order.getId() == id);
         userRepository.save(user);
     }
