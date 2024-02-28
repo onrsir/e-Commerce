@@ -3,6 +3,7 @@ package com.onursir.eCommerce.business.services;
 import com.onursir.eCommerce.business.requests.CreateProductRequest;
 import com.onursir.eCommerce.business.responses.GetAllOrderByProductResponse;
 import com.onursir.eCommerce.business.responses.GetAllProductResponse;
+import com.onursir.eCommerce.business.responses.GetProductDetailByCost;
 import com.onursir.eCommerce.business.responses.GetProductDetailResponse;
 
 import java.util.List;
@@ -17,4 +18,10 @@ public interface ProductService {
     GetProductDetailResponse getProductById(Long id);
 
     GetProductDetailResponse findByProductName(String name);
+
+    List<GetProductDetailByCost> GetProductDetailByCost(int productCost);
+
+
+
+
 }

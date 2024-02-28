@@ -6,12 +6,17 @@ import com.onursir.eCommerce.business.mappers.ModelMappersService;
 import com.onursir.eCommerce.business.requests.CreateOrderRequest;
 import com.onursir.eCommerce.business.responses.GetAllOrderResponse;
 import com.onursir.eCommerce.business.responses.GetAllUserResponse;
+import com.onursir.eCommerce.business.responses.GetOrderByDateResponse;
+import com.onursir.eCommerce.business.responses.GetOrderByUser;
 import com.onursir.eCommerce.dataAccess.OrderRepository;
 import com.onursir.eCommerce.dataAccess.UserRepository;
 import com.onursir.eCommerce.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
@@ -43,7 +48,22 @@ public class OrderServiceImpl implements OrderService{
         this.orderRepository.save(order);
     }
 
+    @Override
+    public List<GetOrderByUser> findOrderByUser(User user) {
+            List<GetOrderByUser> orders = orderRepository.findByUser(user).stream().map(orderItem -> this.modelMappersService.forResponse().map(orderItem, GetOrderByUser.class)).collect(Collectors.toList());
+        return orders;
+    }
 
+
+
+    @Override
+    public List<GetOrderByDateResponse> findByOrderDate(LocalDateTime orderDate) {
+        List<GetOrderByDateResponse> orders = orderRepository.findByOrderDate(orderDate).stream()
+                .map(orderItem -> this.modelMappersService.forResponse()
+                        .map(orderItem,GetOrderByDateResponse.class)).collect(Collectors.toList());
+
+        return orders;
+    }
 
 
     @Override

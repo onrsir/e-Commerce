@@ -1,8 +1,11 @@
 package com.onursir.eCommerce.webAPI;
 
+import com.onursir.eCommerce.Entity.User;
 import com.onursir.eCommerce.business.requests.CreateOrderRequest;
 import com.onursir.eCommerce.business.responses.GetAllOrderResponse;
 import com.onursir.eCommerce.business.responses.GetAllUserResponse;
+import com.onursir.eCommerce.business.responses.GetOrderByDateResponse;
+import com.onursir.eCommerce.business.responses.GetOrderByUser;
 import com.onursir.eCommerce.business.services.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
@@ -11,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -54,4 +58,24 @@ public class OrderController {
     public void add(@RequestBody CreateOrderRequest orders) {
         orderService.add(orders);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<GetOrderByUser>> findOrderByUser(@PathVariable Long userId) {
+        User user = new User();
+        user.setId(userId);
+        List<GetOrderByUser> orders = orderService.findOrderByUser(user);
+        return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/orders")
+    public ResponseEntity<List<GetOrderByDateResponse>> getOrdersByDate(@RequestParam("orderDate") LocalDateTime orderDate) {
+        List<GetOrderByDateResponse> orders = orderService.findByOrderDate(orderDate);
+        if (orders.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(orders);
+        }
+    }
+
+
 }

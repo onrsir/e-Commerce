@@ -4,6 +4,7 @@ package com.onursir.eCommerce.webAPI;
 import com.onursir.eCommerce.business.requests.CreateProductRequest;
 import com.onursir.eCommerce.business.responses.GetAllProductResponse;
 import com.onursir.eCommerce.business.responses.GetAllUserResponse;
+import com.onursir.eCommerce.business.responses.GetProductDetailByCost;
 import com.onursir.eCommerce.business.responses.GetProductDetailResponse;
 import com.onursir.eCommerce.business.services.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +14,7 @@ import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -59,10 +61,19 @@ public class ProductController {
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.notFound().build();
         }
-
     }
 
+    @GetMapping("cost/{cost}")
+    @Operation(summary = "getByCost")
 
+    public List<GetProductDetailByCost> findByProductCost(@PathVariable int cost){
+        try {
+            List<GetProductDetailByCost> response = productService.GetProductDetailByCost(cost);
 
+            return response;
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Products not found with cost: " + cost, ex);
+        }
+    }
 
 }

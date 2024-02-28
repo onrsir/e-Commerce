@@ -3,10 +3,7 @@ package com.onursir.eCommerce.business.services;
 import com.onursir.eCommerce.Entity.Product;
 import com.onursir.eCommerce.business.mappers.ModelMappersService;
 import com.onursir.eCommerce.business.requests.CreateProductRequest;
-import com.onursir.eCommerce.business.responses.GetAllCategoryResponse;
-import com.onursir.eCommerce.business.responses.GetAllOrderByProductResponse;
-import com.onursir.eCommerce.business.responses.GetAllProductResponse;
-import com.onursir.eCommerce.business.responses.GetProductDetailResponse;
+import com.onursir.eCommerce.business.responses.*;
 import com.onursir.eCommerce.dataAccess.ProductRepository;
 import com.onursir.eCommerce.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -65,5 +62,20 @@ public class ProductServiceImpl implements ProductService{
             throw new EntityNotFoundException("Product not found with name: " + name);
         }
         return modelMappersService.forResponse().map(product, GetProductDetailResponse.class);
+    }
+
+    @Override
+    public List<GetProductDetailByCost> GetProductDetailByCost(int productCost) {
+        List<Product> product = productRepository.findByProductCost(productCost);
+
+        if (product == null) {
+            throw new EntityNotFoundException("Product not found with name: " + productCost);
+        }
+
+        List<GetProductDetailByCost> productDetailByCosts = product.stream()
+                .map(product1 -> this.modelMappersService.forResponse()
+                        .map(product1, GetProductDetailByCost.class)).collect(Collectors.toList());
+
+        return productDetailByCosts;
     }
 }
