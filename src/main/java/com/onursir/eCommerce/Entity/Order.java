@@ -24,4 +24,8 @@ public class Order {
     private BigDecimal amount;
 
     private LocalDateTime orderDate;
+
+
+
+
 }

@@ -11,4 +11,6 @@ public interface CategoryService {
     void add(CreateCategoryRequest createCategoryRequest);
 
     List<GetAllCategoryResponse> getAll();
+
+    void delete(long id);
 }

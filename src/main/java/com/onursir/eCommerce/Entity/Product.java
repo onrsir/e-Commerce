@@ -11,6 +11,8 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "products")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -21,12 +23,14 @@ public class Product {
     private int productCost;
 
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "product_category",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     @JsonIgnore
-    private List<Category> categories;
+    private Category category;
+
+
+
+
+
 
 }

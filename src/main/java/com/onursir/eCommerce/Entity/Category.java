@@ -18,8 +18,8 @@ public class Category {
     private String name;
     private String description;
 
-    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
     @JsonIgnore
-    List<Product> products = new ArrayList<>();
+    private List<Product> products;
 
 }

@@ -1,7 +1,6 @@
 package com.onursir.eCommerce.business.responses;
 
 import com.onursir.eCommerce.Entity.Category;
-import com.onursir.eCommerce.Entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,5 @@ public class GetAllProductResponse {
     private long categoryId;
     private String productName;
     private int productCost;
-
-    List<Category> categories;
 
 }

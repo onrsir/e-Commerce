@@ -6,16 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class GetAllCategoryResponse {
+@AllArgsConstructor
+public class GetAllOrderByProductResponse {
     private long id;
-    private String name;
-    private String description;
-    private List<Product> products;
+    private long categoryId;
+    private String productName;
+    private int productCost;
+    private List<Order> orders;
 
 }

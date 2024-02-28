@@ -1,16 +1,16 @@
-package com.onursir.eCommerce.business.requests;
+package com.onursir.eCommerce.business.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class CreateProductRequest {
+@AllArgsConstructor
+public class GetProductDetailResponse {
 
     private long id;
-    private Long categoryId;
-    private String productName;
+    private String name;
+    private int stock;
     private int productCost;
 }

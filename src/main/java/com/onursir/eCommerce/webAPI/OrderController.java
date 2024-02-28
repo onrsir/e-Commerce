@@ -43,17 +43,15 @@ public class OrderController {
 
 
     @GetMapping
+    @Operation(summary = "Get All")
     public List<GetAllOrderResponse> getAll(){
         return orderService.getAll();
     }
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Add")
     public void add(@RequestBody CreateOrderRequest orders) {
         orderService.add(orders);
     }
-
-
-
-
 }
